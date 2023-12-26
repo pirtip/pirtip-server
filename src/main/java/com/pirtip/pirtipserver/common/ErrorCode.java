@@ -1,5 +1,7 @@
 package com.pirtip.pirtipserver.common;
 
+import com.fasterxml.jackson.annotation.JsonValue;
+
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -15,6 +17,11 @@ public enum ErrorCode {
 	private final String message;
 	private final int httpStatusCode;
 	private final ErrorLevel level;
+
+	@JsonValue
+	public String getCode() {
+		return code;
+	}
 
 	@RequiredArgsConstructor
 	@Getter

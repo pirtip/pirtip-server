@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import com.pirtip.pirtipserver.common.BusinessException;
+import com.pirtip.pirtipserver.model.ErrorResponse;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -14,7 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 public class GlobalExceptionHandler {
 
 	@ExceptionHandler(BusinessException.class)
-	public ResponseEntity<?> handleBusinessException(BusinessException e) {
+	public ResponseEntity<ErrorResponse> handleBusinessException(BusinessException e) {
 		switch (e.getErrorCode().getLevel()) {
 			case ERROR:
 				log.error("BusinessException occurred (errorCode={})", e.getErrorCode().getCode(), e);
@@ -34,8 +35,12 @@ public class GlobalExceptionHandler {
 			default:
 		}
 
-		return ResponseEntity.status(e.getErrorCode().getHttpStatusCode())
+		ErrorResponse errorResponse = ErrorResponse.builder()
+			.errorCode(e.getErrorCode())
+			.message(e.getErrorCode().getMessage())
 			.build();
+		return ResponseEntity.status(e.getErrorCode().getHttpStatusCode())
+			.body(errorResponse);
 	}
 
 	@ExceptionHandler(Exception.class)
