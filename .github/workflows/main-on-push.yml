@@ -46,3 +46,11 @@ jobs:
         password: ${{ secrets.PASSWORD }}
         port: ${{ secrets.PORT }}
         script: ln -sfn /home/${{ secrets.USERNAME }}/deploy/${{ github.sha }}/pirtip-server-0.0.1-SNAPSHOT.jar /home/${{ secrets.USERNAME }}/pirtip-server.jar
+    - name: Restart the server
+      uses: appleboy/ssh-action@v1.0.3
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        password: ${{ secrets.PASSWORD }}
+        port: ${{ secrets.PORT }}
+        script: sudo systemctl restart pirtip
