@@ -23,6 +23,8 @@ public class SecurityConfiguration {
 			.formLogin().disable()
 			.httpBasic().disable();
 
+		http.formLogin();
+
 		http.authorizeRequests()
 			.antMatchers("/api/user/signup").anonymous()
 			.antMatchers("/swagger-ui.html/**", "/swagger-ui/**", "/v3/api-docs/**").anonymous()

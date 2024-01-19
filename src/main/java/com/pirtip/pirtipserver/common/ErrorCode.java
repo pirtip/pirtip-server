@@ -11,7 +11,8 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public enum ErrorCode {
 
-	DUPLICATE_ERROR("000", "Duplicate data", 409, ErrorLevel.WARN);
+	DUPLICATE_ERROR("000", "Duplicate data", 409, ErrorLevel.WARN),
+	USER_NOT_FOUND("001", "User is not found", 404, ErrorLevel.WARN);
 
 	private final String code;
 	private final String message;
