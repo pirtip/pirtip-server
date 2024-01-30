@@ -54,9 +54,9 @@ jobs:
         password: ${{ secrets.PASSWORD }}
         port: ${{ secrets.PORT }}
         script: |
-          echo SPRING_PROFILES_ACTIVE=real >> /home/${{ secrets.USERNAME }}/deploy/${{ github.sha }}/application.properties
-          echo SPRING_DATASOURCE_HIKARI_USERNAME=${{ secrets.DATABASE_USERNAME }} >> /home/${{ secrets.USERNAME }}/deploy/${{ github.sha }}/application.properties
-          echo SPRING_DATASOURCE_HIKARI_PASSWORD=${{ secrets.DATABASE_PASSWORD }} >> /home/${{ secrets.USERNAME }}/deploy/${{ github.sha }}/application.properties
+          echo spring.profiles.active=real >> /home/${{ secrets.USERNAME }}/deploy/${{ github.sha }}/application.properties
+          echo spring.datasource.hikari.username=${{ secrets.DATABASE_USERNAME }} >> /home/${{ secrets.USERNAME }}/deploy/${{ github.sha }}/application.properties
+          echo spring.datasource.hikari.password=${{ secrets.DATABASE_PASSWORD }} >> /home/${{ secrets.USERNAME }}/deploy/${{ github.sha }}/application.properties
           ln -sfn /home/${{ secrets.USERNAME }}/deploy/${{ github.sha }}/application.properties /home/${{ secrets.USERNAME }}/application.properties
     - name: Restart the server
       uses: appleboy/ssh-action@v1.0.3
