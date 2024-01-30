@@ -46,6 +46,17 @@ jobs:
         password: ${{ secrets.PASSWORD }}
         port: ${{ secrets.PORT }}
         script: ln -sfn /home/${{ secrets.USERNAME }}/deploy/${{ github.sha }}/pirtip-server-0.0.1-SNAPSHOT.jar /home/${{ secrets.USERNAME }}/pirtip-server.jar
+    - name: Create an environment file
+      uses: appleboy/ssh-action@v1.0.3
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        password: ${{ secrets.PASSWORD }}
+        port: ${{ secrets.PORT }}
+        script: |
+          echo SPRING_PROFILES_ACTIVE=real >> /home/${{ secrets.USERNAME }}/deploy/${{ github.sha }}/application.properties
+          echo SPRING_DATASOURCE_HIKARI_USERNAME=${{ secrets.DATABASE_USERNAME }} >> /home/${{ secrets.USERNAME }}/deploy/${{ github.sha }}/application.properties
+          echo SPRING_DATASOURCE_HIKARI_PASSWORD=${{ secrets.DATABASE_PASSWORD }} >> /home/${{ secrets.USERNAME }}/deploy/${{ github.sha }}/application.properties
     - name: Restart the server
       uses: appleboy/ssh-action@v1.0.3
       with:
