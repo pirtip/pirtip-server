@@ -28,7 +28,7 @@ public class SecurityConfiguration {
 		http.authorizeRequests()
 			.antMatchers("/api/user/signup").anonymous()
 			.antMatchers("/swagger-ui.html/**", "/swagger-ui/**", "/v3/api-docs/**").anonymous()
-			.anyRequest().authenticated();
+			.anyRequest().anonymous();
 
 		return http.build();
 	}
