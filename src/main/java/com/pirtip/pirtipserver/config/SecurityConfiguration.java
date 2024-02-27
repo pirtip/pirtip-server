@@ -1,7 +1,5 @@
 package com.pirtip.pirtipserver.config;
 
-import java.util.List;
-
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -45,13 +43,12 @@ public class SecurityConfiguration {
 
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-		http.csrf().disable()
-			.formLogin().disable()
-			.httpBasic().disable();
+		http.cors();
+		http.csrf().disable();
+		http.formLogin().disable();
+		http.httpBasic().disable();
 
 		http.formLogin();
-
-		http.cors();
 
 		http.authorizeRequests()
 			.antMatchers("/api/user/signup").anonymous()
