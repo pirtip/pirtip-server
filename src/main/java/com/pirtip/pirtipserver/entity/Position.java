@@ -22,10 +22,10 @@ import lombok.NoArgsConstructor;
 @Getter
 public class Position {
 
-	@Column(name = "latitude", columnDefinition = "DECIMAL(10,8)")
+	@Column(name = "latitude", columnDefinition = "DECIMAL(11,8)")
 	private BigDecimal latitude;
 
-	@Column(name = "longitude", columnDefinition = "DECIMAL(10,8)")
+	@Column(name = "longitude", columnDefinition = "DECIMAL(11,8)")
 	private BigDecimal longitude;
 
 	@Override
