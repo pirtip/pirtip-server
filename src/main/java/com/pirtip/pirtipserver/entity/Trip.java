@@ -1,9 +1,11 @@
 package com.pirtip.pirtipserver.entity;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
+import javax.persistence.AttributeOverride;
+import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -17,7 +19,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-@Entity
+@Entity(name = "trip")
 @Table(
 	name = "trip",
 	indexes = {
@@ -49,4 +51,11 @@ public class Trip {
 
 	@Column(name = "trip_end_date")
 	private LocalDate endDate;
+
+	@Embedded
+	@AttributeOverrides({
+		@AttributeOverride(name = "latitude", column = @Column(name = "trip_latitude", columnDefinition = "DECIMAL(11,8)")),
+		@AttributeOverride(name = "longitude", column = @Column(name = "trip_longitude", columnDefinition = "DECIMAL(11,8)"))
+	})
+	private Position position;
 }

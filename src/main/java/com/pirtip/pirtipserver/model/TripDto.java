@@ -8,6 +8,7 @@ package com.pirtip.pirtipserver.model;
 
 import java.time.LocalDate;
 
+import com.pirtip.pirtipserver.entity.Position;
 import com.pirtip.pirtipserver.entity.Trip;
 
 import lombok.AllArgsConstructor;
@@ -25,6 +26,7 @@ public class TripDto {
 	private String content;
 	private LocalDate beginDate;
 	private LocalDate endDate;
+	private Position position;
 
 	public static TripDto fromTrip(Trip trip) {
 		return TripDto.builder()
@@ -34,6 +36,7 @@ public class TripDto {
 			.content(trip.getContent())
 			.beginDate(trip.getBeginDate())
 			.endDate(trip.getEndDate())
+			.position(trip.getPosition())
 			.build();
 	}
 }

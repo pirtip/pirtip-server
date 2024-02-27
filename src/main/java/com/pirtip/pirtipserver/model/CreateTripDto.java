@@ -2,6 +2,8 @@ package com.pirtip.pirtipserver.model;
 
 import java.time.LocalDate;
 
+import com.pirtip.pirtipserver.entity.Position;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -13,4 +15,5 @@ public class CreateTripDto {
 	private String content;
 	private LocalDate beginDate;
 	private LocalDate endDate;
+	private Position position;
 }

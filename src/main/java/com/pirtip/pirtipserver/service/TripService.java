@@ -41,6 +41,7 @@ public class TripService {
 			.content(body.getContent())
 			.beginDate(body.getBeginDate())
 			.endDate(body.getEndDate())
+			.position(body.getPosition())
 			.build();
 		tripRepository.save(trip);
 		return TripDto.fromTrip(trip);
