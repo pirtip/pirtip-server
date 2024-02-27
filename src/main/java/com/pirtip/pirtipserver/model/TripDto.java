@@ -14,9 +14,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 
-/**
- * @author geonhong.lee
- */
 @AllArgsConstructor
 @Builder
 @Getter

@@ -1,5 +1,6 @@
 package com.pirtip.pirtipserver.web.controller;
 
+import org.springframework.data.domain.Slice;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.pirtip.pirtipserver.model.CreateTripDto;
+import com.pirtip.pirtipserver.model.ReadTripRequest;
 import com.pirtip.pirtipserver.model.TripDto;
 import com.pirtip.pirtipserver.service.TripService;
 
@@ -35,5 +37,13 @@ public class TripController {
 	) {
 		TripDto trip = tripService.getTripById(1L, tripId);
 		return ResponseEntity.ok(trip);
+	}
+
+	@GetMapping
+	public ResponseEntity<Slice<TripDto>> getTrips(
+		ReadTripRequest param
+	) {
+		Slice<TripDto> trips = tripService.getTrips(1L, param);
+		return ResponseEntity.ok(trips);
 	}
 }
