@@ -1,6 +1,6 @@
 package com.pirtip.pirtipserver.model;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.pirtip.pirtipserver.entity.Position;
@@ -10,17 +10,12 @@ import lombok.Getter;
 
 @AllArgsConstructor
 @Getter
-public class CreateTripDto {
-
-	private String title;
+public class CreateTripPlanDto {
 
 	private String content;
 
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-	private LocalDate beginDate;
-
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-	private LocalDate endDate;
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
+	private LocalDateTime plannedAt;
 
 	private Position position;
 }

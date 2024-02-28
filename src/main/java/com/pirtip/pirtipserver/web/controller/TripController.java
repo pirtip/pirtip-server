@@ -10,8 +10,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.pirtip.pirtipserver.model.CreateTripDto;
+import com.pirtip.pirtipserver.model.CreateTripPlanDto;
 import com.pirtip.pirtipserver.model.ReadTripRequest;
 import com.pirtip.pirtipserver.model.TripDto;
+import com.pirtip.pirtipserver.model.TripPlanDto;
+import com.pirtip.pirtipserver.service.TripPlanService;
 import com.pirtip.pirtipserver.service.TripService;
 
 import lombok.RequiredArgsConstructor;
@@ -22,6 +25,7 @@ import lombok.RequiredArgsConstructor;
 public class TripController {
 
 	private final TripService tripService;
+	private final TripPlanService tripPlanService;
 
 	@PostMapping
 	public ResponseEntity<TripDto> createTrip(
@@ -45,5 +49,14 @@ public class TripController {
 	) {
 		Slice<TripDto> trips = tripService.getTrips(1L, param);
 		return ResponseEntity.ok(trips);
+	}
+
+	@PostMapping("/{tripId}/plan")
+	public ResponseEntity<TripPlanDto> createTripPlan(
+		@PathVariable long tripId,
+		@RequestBody CreateTripPlanDto body
+	) {
+		TripPlanDto plan = tripPlanService.createTripPlan(1L, tripId, body);
+		return ResponseEntity.ok(plan);
 	}
 }
