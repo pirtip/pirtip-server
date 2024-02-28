@@ -39,4 +39,14 @@ public class TripPlanService {
 		tripPlanRepository.save(plan);
 		return TripPlanDto.fromTripPlan(plan);
 	}
+
+	@Transactional(readOnly = true)
+	public TripPlanDto getTripPlan(long userId, long planId) {
+		TripPlan plan = tripPlanRepository.findById(planId)
+			.orElseThrow(() -> new BusinessException(ErrorCode.PLAN_NOT_FOUND));
+		if (userId != plan.getCreatedBy()) {
+			throw new BusinessException(ErrorCode.NOT_AUTHORIZED);
+		}
+		return TripPlanDto.fromTripPlan(plan);
+	}
 }
