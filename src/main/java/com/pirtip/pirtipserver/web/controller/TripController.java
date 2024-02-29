@@ -53,8 +53,8 @@ public class TripController {
 		@Parameter(name = "page", in = ParameterIn.QUERY, example = "0"),
 		@Parameter(name = "size", in = ParameterIn.QUERY, example = "10"),
 		@Parameter(name = "sort", in = ParameterIn.QUERY, examples = {
-			@ExampleObject(name = "여행일자 내림차순", value = "plannedAt,desc"),
-			@ExampleObject(name = "여행일자 오름차순", value = "plannedAt,asc"),
+			@ExampleObject(name = "여행일자 내림차순", value = "beginDate,desc"),
+			@ExampleObject(name = "여행일자 오름차순", value = "beginDate,asc"),
 			@ExampleObject(name = "생성 내림차순", value = "id,desc"),
 			@ExampleObject(name = "생성 오름차순", value = "id,asc")
 		})
