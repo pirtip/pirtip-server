@@ -3,7 +3,6 @@ package com.pirtip.pirtipserver.service;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
@@ -15,7 +14,7 @@ import com.pirtip.pirtipserver.common.BusinessException;
 import com.pirtip.pirtipserver.common.ErrorCode;
 import com.pirtip.pirtipserver.entity.Trip;
 import com.pirtip.pirtipserver.entity.UserAccount;
-import com.pirtip.pirtipserver.model.CreateTripDto;
+import com.pirtip.pirtipserver.model.CreateTripRequest;
 import com.pirtip.pirtipserver.model.ReadTripRequest;
 import com.pirtip.pirtipserver.model.TripDto;
 import com.pirtip.pirtipserver.repository.TripRepository;
@@ -32,7 +31,7 @@ public class TripService {
 	private final TripRepository tripRepository;
 
 	@Transactional
-	public TripDto createTrip(long accountId, CreateTripDto body) {
+	public TripDto createTrip(long accountId, CreateTripRequest body) {
 		UserAccount user = userAccountRepository.findById(accountId)
 			.orElseThrow(() -> new BusinessException(ErrorCode.USER_NOT_FOUND));
 		Trip trip = Trip.builder()

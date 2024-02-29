@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.pirtip.pirtipserver.model.CreateTripDto;
-import com.pirtip.pirtipserver.model.CreateTripPlanDto;
+import com.pirtip.pirtipserver.model.CreateTripRequest;
+import com.pirtip.pirtipserver.model.CreateTripPlanRequest;
 import com.pirtip.pirtipserver.model.ReadTripRequest;
 import com.pirtip.pirtipserver.model.TripDto;
 import com.pirtip.pirtipserver.model.TripPlanDto;
@@ -29,7 +29,7 @@ public class TripController {
 
 	@PostMapping
 	public ResponseEntity<TripDto> createTrip(
-		@RequestBody CreateTripDto body
+		@RequestBody CreateTripRequest body
 	) {
 		TripDto trip = tripService.createTrip(1L, body);
 		return ResponseEntity.ok(trip);
@@ -54,7 +54,7 @@ public class TripController {
 	@PostMapping("/{tripId}/plan")
 	public ResponseEntity<TripPlanDto> createTripPlan(
 		@PathVariable long tripId,
-		@RequestBody CreateTripPlanDto body
+		@RequestBody CreateTripPlanRequest body
 	) {
 		TripPlanDto plan = tripPlanService.createTripPlan(1L, tripId, body);
 		return ResponseEntity.ok(plan);

@@ -6,7 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.pirtip.pirtipserver.common.BusinessException;
 import com.pirtip.pirtipserver.common.ErrorCode;
 import com.pirtip.pirtipserver.entity.TripPlan;
-import com.pirtip.pirtipserver.model.CreateTripPlanDto;
+import com.pirtip.pirtipserver.model.CreateTripPlanRequest;
 import com.pirtip.pirtipserver.model.TripPlanDto;
 import com.pirtip.pirtipserver.repository.TripPlanRepository;
 import com.pirtip.pirtipserver.repository.TripRepository;
@@ -23,7 +23,7 @@ public class TripPlanService {
 	private final TripPlanRepository tripPlanRepository;
 
 	@Transactional
-	public TripPlanDto createTripPlan(long userId, long tripId, CreateTripPlanDto request) {
+	public TripPlanDto createTripPlan(long userId, long tripId, CreateTripPlanRequest request) {
 		userAccountRepository.findById(userId)
 			.orElseThrow(() -> new BusinessException(ErrorCode.USER_NOT_FOUND));
 		tripRepository.findById(tripId)
