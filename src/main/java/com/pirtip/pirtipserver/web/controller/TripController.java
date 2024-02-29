@@ -75,4 +75,23 @@ public class TripController {
 		TripPlanDto plan = tripPlanService.createTripPlan(1L, tripId, body);
 		return ResponseEntity.ok(plan);
 	}
+
+	@GetMapping("/{tripId}/plan")
+	@Parameters({
+		@Parameter(name = "page", in = ParameterIn.QUERY, example = "0"),
+		@Parameter(name = "size", in = ParameterIn.QUERY, example = "10"),
+		@Parameter(name = "sort", in = ParameterIn.QUERY, examples = {
+			@ExampleObject(name = "일정 내림차순", value = "plannedAt,desc"),
+			@ExampleObject(name = "일정 오름차순", value = "plannedAt,asc"),
+			@ExampleObject(name = "생성 내림차순", value = "id,desc"),
+			@ExampleObject(name = "생성 오름차순", value = "id,asc")
+		})
+	})
+	public ResponseEntity<Slice<TripPlanDto>> getTripPlans(
+		@PathVariable long tripId,
+		@Parameter(hidden = true) Pageable pageable
+	) {
+		Slice<TripPlanDto> plans = tripPlanService.getTripPlans(1L, tripId, pageable);
+		return ResponseEntity.ok(plans);
+	}
 }

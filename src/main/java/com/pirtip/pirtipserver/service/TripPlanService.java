@@ -1,10 +1,17 @@
 package com.pirtip.pirtipserver.service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
+import org.springframework.data.domain.SliceImpl;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.pirtip.pirtipserver.common.BusinessException;
 import com.pirtip.pirtipserver.common.ErrorCode;
+import com.pirtip.pirtipserver.entity.Trip;
 import com.pirtip.pirtipserver.entity.TripPlan;
 import com.pirtip.pirtipserver.model.CreateTripPlanRequest;
 import com.pirtip.pirtipserver.model.TripPlanDto;
@@ -48,5 +55,22 @@ public class TripPlanService {
 			throw new BusinessException(ErrorCode.NOT_AUTHORIZED);
 		}
 		return TripPlanDto.fromTripPlan(plan);
+	}
+
+	@Transactional(readOnly = true)
+	public Slice<TripPlanDto> getTripPlans(long userId, long tripId, Pageable pageable) {
+		userAccountRepository.findById(userId)
+			.orElseThrow(() -> new BusinessException(ErrorCode.USER_NOT_FOUND));
+		Trip trip = tripRepository.findById(tripId)
+			.orElseThrow(() -> new BusinessException(ErrorCode.TRIP_NOT_FOUND));
+		if (userId != trip.getCreatedBy()) {
+			throw new BusinessException(ErrorCode.NOT_AUTHORIZED);
+		}
+		Slice<TripPlan> planSlice = tripPlanRepository.findByTripId(tripId, pageable);
+		List<TripPlanDto> plans = planSlice.getContent()
+			.stream()
+			.map(TripPlanDto::fromTripPlan)
+			.collect(Collectors.toList());
+		return new SliceImpl<>(plans, planSlice.getPageable(), planSlice.hasNext());
 	}
 }
