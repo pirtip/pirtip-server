@@ -57,21 +57,18 @@ public class TripService {
 	}
 
 	@Transactional(readOnly = true)
-	public Slice<TripDto> getTrips(long userId, ReadTripRequest request) {
+	public Slice<TripDto> getTrips(long userId, ReadTripRequest request, Pageable pageable) {
 		if (request == null) {
 			request = ReadTripRequest.builder()
 				.userId(userId)
-				.page(0)
-				.size(10)
 				.build();
 		}
 		if (request.getUserId() == null) {
 			request.setUserId(userId);
 		}
-		Pageable pageable = PageRequest.of(
-			request.getPage(),
-			request.getSize()
-		);
+		if (pageable == null) {
+			pageable = PageRequest.of(0, 10);
+		}
 		Slice<Trip> tripSlice = tripRepository.findByCreatedBy(request.getUserId(), pageable);
 		List<TripDto> tripDtoList = tripSlice.getContent()
 			.stream()
