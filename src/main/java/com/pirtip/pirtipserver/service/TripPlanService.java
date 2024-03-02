@@ -73,4 +73,16 @@ public class TripPlanService {
 			.collect(Collectors.toList());
 		return new SliceImpl<>(plans, planSlice.getPageable(), planSlice.hasNext());
 	}
+
+	@Transactional
+	public void deleteTripPlan(long userId, long planId) {
+		userAccountRepository.findById(userId)
+			.orElseThrow(() -> new BusinessException(ErrorCode.USER_NOT_FOUND));
+		TripPlan plan = tripPlanRepository.findById(planId)
+			.orElseThrow(() -> new BusinessException(ErrorCode.PLAN_NOT_FOUND));
+		if (userId != plan.getCreatedBy()) {
+			throw new BusinessException(ErrorCode.NOT_AUTHORIZED);
+		}
+		tripPlanRepository.delete(plan);
+	}
 }
