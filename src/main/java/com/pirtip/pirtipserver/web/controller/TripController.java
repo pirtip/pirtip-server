@@ -2,6 +2,8 @@ package com.pirtip.pirtipserver.web.controller;
 
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -51,7 +53,7 @@ public class TripController {
 	@GetMapping
 	@Parameters({
 		@Parameter(name = "page", in = ParameterIn.QUERY, example = "0"),
-		@Parameter(name = "size", in = ParameterIn.QUERY, example = "10"),
+		@Parameter(name = "size", in = ParameterIn.QUERY, example = "2147483647"),
 		@Parameter(name = "sort", in = ParameterIn.QUERY, examples = {
 			@ExampleObject(name = "여행일자 내림차순", value = "beginDate,desc"),
 			@ExampleObject(name = "여행일자 오름차순", value = "beginDate,asc"),
@@ -61,7 +63,7 @@ public class TripController {
 	})
 	public ResponseEntity<Slice<TripDto>> getTrips(
 		@Parameter(hidden = true) ReadTripRequest param,
-		@Parameter(hidden = true) Pageable pageable
+		@Parameter(hidden = true) @PageableDefault(size = Integer.MAX_VALUE, page = 0, sort = "beginDate", direction = Sort.Direction.ASC) Pageable pageable
 	) {
 		Slice<TripDto> trips = tripService.getTrips(1L, param, pageable);
 		return ResponseEntity.ok(trips);
@@ -79,7 +81,7 @@ public class TripController {
 	@GetMapping("/{tripId}/plan")
 	@Parameters({
 		@Parameter(name = "page", in = ParameterIn.QUERY, example = "0"),
-		@Parameter(name = "size", in = ParameterIn.QUERY, example = "10"),
+		@Parameter(name = "size", in = ParameterIn.QUERY, example = "2147483647"),
 		@Parameter(name = "sort", in = ParameterIn.QUERY, examples = {
 			@ExampleObject(name = "일정 내림차순", value = "plannedAt,desc"),
 			@ExampleObject(name = "일정 오름차순", value = "plannedAt,asc"),
@@ -89,7 +91,7 @@ public class TripController {
 	})
 	public ResponseEntity<Slice<TripPlanDto>> getTripPlans(
 		@PathVariable long tripId,
-		@Parameter(hidden = true) Pageable pageable
+		@Parameter(hidden = true) @PageableDefault(size = Integer.MAX_VALUE, page = 0, sort = "plannedAt", direction = Sort.Direction.ASC) Pageable pageable
 	) {
 		Slice<TripPlanDto> plans = tripPlanService.getTripPlans(1L, tripId, pageable);
 		return ResponseEntity.ok(plans);
