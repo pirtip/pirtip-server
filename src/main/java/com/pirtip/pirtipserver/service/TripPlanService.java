@@ -85,4 +85,18 @@ public class TripPlanService {
 		}
 		tripPlanRepository.delete(plan);
 	}
+
+	@Transactional
+	public void replaceTripPlan(long userId, long planId, CreateTripPlanRequest request) {
+		userAccountRepository.findById(userId)
+			.orElseThrow(() -> new BusinessException(ErrorCode.USER_NOT_FOUND));
+		TripPlan plan = tripPlanRepository.findById(planId)
+			.orElseThrow(() -> new BusinessException(ErrorCode.PLAN_NOT_FOUND));
+		if (userId != plan.getCreatedBy()) {
+			throw new BusinessException(ErrorCode.NOT_AUTHORIZED);
+		}
+		plan.setContent(request.getContent());
+		plan.setPlannedAt(request.getPlannedAt());
+		plan.setPosition(request.getPosition());
+	}
 }

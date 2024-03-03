@@ -18,6 +18,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity(name = "trip_plan")
 @Table(
@@ -45,9 +46,11 @@ public class TripPlan {
 	private Long createdBy;
 
 	@Column(name = "trip_plan_content")
+	@Setter
 	private String content;
 
 	@Column(name = "trip_plan_planned_at")
+	@Setter
 	private LocalDateTime plannedAt;
 
 	@Embedded
@@ -55,5 +58,6 @@ public class TripPlan {
 		@AttributeOverride(name = "latitude", column = @Column(name = "trip_plan_latitude", columnDefinition = "DECIMAL(11,8)")),
 		@AttributeOverride(name = "longitude", column = @Column(name = "trip_plan_longitude", columnDefinition = "DECIMAL(11,8)"))
 	})
+	@Setter
 	private Position position;
 }
