@@ -18,6 +18,7 @@ public class TripPlanDto {
 	private Long id;
 	private Long tripId;
 	private Long createdBy;
+	private String title;
 	private String content;
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
 	private LocalDateTime plannedAt;
@@ -28,6 +29,7 @@ public class TripPlanDto {
 			.id(plan.getId())
 			.tripId(plan.getTripId())
 			.createdBy(plan.getCreatedBy())
+			.title(plan.getTitle())
 			.content(plan.getContent())
 			.plannedAt(plan.getPlannedAt())
 			.position(plan.getPosition())

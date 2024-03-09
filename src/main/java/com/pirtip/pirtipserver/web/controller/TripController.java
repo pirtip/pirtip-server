@@ -54,7 +54,7 @@ public class TripController {
 	@GetMapping
 	@Parameters({
 		@Parameter(name = "page", in = ParameterIn.QUERY, example = "0"),
-		@Parameter(name = "size", in = ParameterIn.QUERY, example = "2147483647"),
+		@Parameter(name = "size", in = ParameterIn.QUERY, example = "2147483646"),
 		@Parameter(name = "sort", in = ParameterIn.QUERY, examples = {
 			@ExampleObject(name = "여행일자 내림차순", value = "beginDate,desc"),
 			@ExampleObject(name = "여행일자 오름차순", value = "beginDate,asc"),
@@ -82,7 +82,7 @@ public class TripController {
 	@GetMapping("/{tripId}/plan")
 	@Parameters({
 		@Parameter(name = "page", in = ParameterIn.QUERY, example = "0"),
-		@Parameter(name = "size", in = ParameterIn.QUERY, example = "2147483647"),
+		@Parameter(name = "size", in = ParameterIn.QUERY, example = "2147483646"),
 		@Parameter(name = "sort", in = ParameterIn.QUERY, examples = {
 			@ExampleObject(name = "일정 내림차순", value = "plannedAt,desc"),
 			@ExampleObject(name = "일정 오름차순", value = "plannedAt,asc"),

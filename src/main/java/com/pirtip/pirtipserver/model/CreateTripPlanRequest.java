@@ -12,6 +12,8 @@ import lombok.Getter;
 @Getter
 public class CreateTripPlanRequest {
 
+	private String title;
+
 	private String content;
 
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")

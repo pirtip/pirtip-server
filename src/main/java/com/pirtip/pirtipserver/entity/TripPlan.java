@@ -45,6 +45,10 @@ public class TripPlan {
 	@Column(name = "trip_plan_created_by")
 	private Long createdBy;
 
+	@Column(name = "trip_plan_title")
+	@Setter
+	private String title;
+
 	@Column(name = "trip_plan_content")
 	@Setter
 	private String content;

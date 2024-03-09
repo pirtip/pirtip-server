@@ -39,6 +39,7 @@ public class TripPlanService {
 		TripPlan plan = TripPlan.builder()
 			.tripId(tripId)
 			.createdBy(userId)
+			.title(request.getTitle())
 			.content(request.getContent())
 			.plannedAt(request.getPlannedAt())
 			.position(request.getPosition())
