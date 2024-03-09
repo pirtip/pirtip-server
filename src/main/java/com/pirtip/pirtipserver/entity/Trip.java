@@ -19,7 +19,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-@Entity(name = "trip")
+@Entity
 @Table(
 	name = "trip",
 	indexes = {

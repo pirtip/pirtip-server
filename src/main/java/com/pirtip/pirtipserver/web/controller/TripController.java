@@ -5,6 +5,7 @@ import org.springframework.data.domain.Slice;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -95,5 +96,13 @@ public class TripController {
 	) {
 		Slice<TripPlanDto> plans = tripPlanService.getTripPlans(1L, tripId, pageable);
 		return ResponseEntity.ok(plans);
+	}
+
+	@DeleteMapping("/{tripId}")
+	public ResponseEntity<?> deleteTrip(
+		@PathVariable long tripId
+	) {
+		tripService.deleteTrip(1L, tripId);
+		return ResponseEntity.ok(null);
 	}
 }
