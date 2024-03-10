@@ -97,4 +97,21 @@ public class TripService {
 
 		tripRepository.delete(trip);
 	}
+
+	@Transactional
+	public void replaceTrip(long userId, long tripId, CreateTripRequest request) {
+		userAccountRepository.findById(userId)
+			.orElseThrow(() -> new BusinessException(ErrorCode.USER_NOT_FOUND));
+		Trip trip = tripRepository.findById(tripId)
+			.orElseThrow(() -> new BusinessException(ErrorCode.TRIP_NOT_FOUND));
+		if (userId != trip.getCreatedBy()) {
+			throw new BusinessException(ErrorCode.NOT_AUTHORIZED);
+		}
+
+		trip.setTitle(request.getTitle());
+		trip.setContent(request.getContent());
+		trip.setBeginDate(request.getBeginDate());
+		trip.setEndDate(request.getEndDate());
+		trip.setPosition(request.getPosition());
+	}
 }

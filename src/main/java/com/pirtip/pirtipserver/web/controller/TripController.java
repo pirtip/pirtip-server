@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -103,6 +104,15 @@ public class TripController {
 		@PathVariable long tripId
 	) {
 		tripService.deleteTrip(1L, tripId);
+		return ResponseEntity.ok(null);
+	}
+
+	@PutMapping("/{tripId}")
+	public ResponseEntity<?> replaceTrip(
+		@PathVariable long tripId,
+		@RequestBody CreateTripRequest body
+	) {
+		tripService.replaceTrip(1L, tripId, body);
 		return ResponseEntity.ok(null);
 	}
 }
