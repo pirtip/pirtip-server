@@ -58,7 +58,7 @@ jobs:
           echo spring.datasource.hikari.username=${{ secrets.DATABASE_USERNAME }} >> /home/${{ secrets.USERNAME }}/deploy/${{ github.sha }}/application.properties
           echo spring.datasource.hikari.password=${{ secrets.DATABASE_PASSWORD }} >> /home/${{ secrets.USERNAME }}/deploy/${{ github.sha }}/application.properties
           echo feign.client.config.naverOpenApiClient.default-request-headers.X-Naver-Client-Id=${{ secrets.X_NAVER_CLIENT_ID }} >> /home/${{ secrets.USERNAME }}/deploy/${{ github.sha }}/application.properties
-          echo feign.client.config.naverOpenApiClient.default-request-headers.X-Naver-Client-Secret=${{ secrets.DATABASE_PASSWORD }} >> /home/${{ secrets.X_NAVER_CLIENT_SECRET }}/deploy/${{ github.sha }}/application.properties
+          echo feign.client.config.naverOpenApiClient.default-request-headers.X-Naver-Client-Secret=${{ secrets.X_NAVER_CLIENT_SECRET }} >> /home/${{ secrets.USERNAME }}/deploy/${{ github.sha }}/application.properties
           ln -sfn /home/${{ secrets.USERNAME }}/deploy/${{ github.sha }}/application.properties /home/${{ secrets.USERNAME }}/application.properties
     - name: Restart the server
       uses: appleboy/ssh-action@v1.0.3
